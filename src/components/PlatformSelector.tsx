@@ -26,7 +26,15 @@ import { Text, Icon, HStack } from "@chakra-ui/react";
 
 import { IconType } from "react-icons";
 
-export const PlatformSelector = () => {
+interface Props {
+  onSelectPlatform: (platform: Platform) => void;
+  selectedPlatform: Platform | null;
+}
+
+export const PlatformSelector = ({
+  onSelectPlatform,
+  selectedPlatform,
+}: Props) => {
   const { data, error } = usePlatforms();
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows,
@@ -44,12 +52,15 @@ export const PlatformSelector = () => {
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        Platforms
+        {selectedPlatform?.name || "Platforms"}
       </MenuButton>
       <MenuList>
         {data.map((platform) => (
           <>
-            <MenuItem key={platform.id}>
+            <MenuItem
+              onClick={() => onSelectPlatform(platform)}
+              key={platform.id}
+            >
               <Icon
                 key={platform.id}
                 as={iconMap[platform.slug]}
