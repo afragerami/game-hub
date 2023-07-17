@@ -12,9 +12,9 @@ const GameGrid = () => {
     <>
       {error && <Text>{error}</Text>}
       <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
         padding="10px"
-        spacing={10}
+        spacing={3}
       >
         {isLoading &&
           skeletons.map((skeleton) => (
@@ -23,12 +23,11 @@ const GameGrid = () => {
               <GameCardSkeleton key={skeleton} />
             </GameCardContainer>
           ))}
-        {!isLoading &&
-          data.map((data) => (
-            <GameCardContainer>
-              <GameCard key={data.id} game={data} />
-            </GameCardContainer>
-          ))}
+        {data.map((data) => (
+          <GameCardContainer>
+            <GameCard key={data.id} game={data} />
+          </GameCardContainer>
+        ))}
       </SimpleGrid>
     </>
   );
